@@ -1,4 +1,4 @@
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import NearestNeighbors
 import numpy as np
 from scipy.linalg import norm
 from scipy.special import softmax
@@ -6,7 +6,7 @@ import sys
 import os
 
 from config import Config
-
+from sklearn.preprocessing import normalize
 
 def neighbor_hit_cnt(rna_cnt, neighbor_indexs):
     hit_cnt = np.zeros(rna_cnt)
@@ -16,38 +16,36 @@ def neighbor_hit_cnt(rna_cnt, neighbor_indexs):
 
     return hit_cnt
 
-def compute_scores(knn_label, predictions, neighbor_indexs, topn):
-    num_samples = knn_label.shape[0]
+def weighted_knn_predict(atac_embeddings, rna_embedding_knn, rna_label_knn, k=40):
+    neigh = NearestNeighbors(n_neighbors=k)
+    neigh.fit(rna_embedding_knn)
+    distances, indices = neigh.kneighbors(atac_embeddings)
 
-    conf_scores = np.zeros(num_samples)
-    for i in range(num_samples):
-        for j in range(topn):
-            if knn_label[i] == np.argmax(predictions[neighbor_indexs[i][j]]):
-                conf_scores[i] += np.max(predictions[neighbor_indexs[i][j]])
-                                
-        conf_scores[i] /= topn
-        
-    return conf_scores
+    predictions = []
+    for i in range(len(atac_embeddings)):
+        class_weights = {}
+        for j, idx in enumerate(indices[i]):
+            label = rna_label_knn[idx]
+            dist = distances[i][j]
+            weight = 1 / (dist + 1e-5)
+            class_weights[label] = class_weights.get(label, 0) + weight
+        predictions.append(max(class_weights, key=class_weights.get))
 
+    return np.array(predictions), indices
 
 def compute_hit_conf(knn_label, rna_labels, neighbor_indexs, hit_cnts):
     num_samples = knn_label.shape[0]
-
     conf_scores = np.zeros(num_samples)
     for i in range(num_samples):
         for j in range(neighbor_indexs.shape[1]):
-            if knn_label[i] == np.argmax(rna_labels[neighbor_indexs[i][j]]):
+            if knn_label[i] == rna_labels[neighbor_indexs[i][j]]:
                 conf_scores[i] += 1/hit_cnts[neighbor_indexs[i][j]]
             else:
                 conf_scores[i] -= 1/hit_cnts[neighbor_indexs[i][j]]
-                                    
     return conf_scores
 
-
-
 def KNN(config, neighbors = 30, knn_rna_samples = 20000):    
-    # read rna embeddings and predictions    
-    print('[KNN] Read RNA data')
+    print('[WKNN] Read RNA data')
     db_name = os.path.basename(config.rna_paths[0]).split('.')[0]
     rna_embeddings = np.loadtxt('./output/' + db_name + '_embeddings.txt')
     rna_predictions = np.loadtxt('./output/' + db_name + '_predictions.txt')
@@ -58,10 +56,6 @@ def KNN(config, neighbors = 30, knn_rna_samples = 20000):
         rna_predictions = np.concatenate((rna_predictions, np.loadtxt('./output/' + db_name + '_predictions.txt')), 0)
         rna_labels = np.concatenate((rna_labels, np.loadtxt(config.rna_labels[i])), 0)
 
-        
-    # Subsampling:
-    #   if # of rna data > knn_rna_samples, then uniformly samples rna data.
-    #   if # of rna data <= knn_rna_samples, then use all rna data.
     rna_embedding_knn = []
     rna_label_knn = []
     rna_prediction_knn = []
@@ -69,10 +63,6 @@ def KNN(config, neighbors = 30, knn_rna_samples = 20000):
     num_of_rna = rna_embeddings.shape[0]
     if num_of_rna > knn_rna_samples:
         sampling_interval = num_of_rna*1./knn_rna_samples
-        subsampled_rna_embeddings = []
-        subsampled_rna_labels = []
-        subsampled_rna_data_prediction = []
-        
         i = 0
         while i < num_of_rna:        
             rna_embedding_knn.append(rna_embeddings[i])
@@ -83,9 +73,8 @@ def KNN(config, neighbors = 30, knn_rna_samples = 20000):
         rna_embedding_knn = rna_embeddings
         rna_label_knn = rna_labels
         rna_prediction_knn = rna_predictions
-    
-    # read rna embeddings and predictions
-    print('[KNN] Read ATAC data')
+
+    print('[WKNN] Read ATAC data')
     db_names = []
     db_sizes = []
     db_name = os.path.basename(config.atac_paths[0]).split('.')[0]    
@@ -101,33 +90,27 @@ def KNN(config, neighbors = 30, knn_rna_samples = 20000):
         atac_predictions = np.concatenate((atac_predictions, pred), 0)        
         db_names.append(db_name)
         db_sizes.append(em.shape[0])
-        
-
-
-    # knn start
-    print('[KNN] Build Space')
-    neigh = KNeighborsClassifier(n_neighbors=neighbors)
-    neigh.fit(rna_embedding_knn, rna_label_knn)
     
-    print('[KNN] knn')
-    atac_predict = neigh.predict(atac_embeddings)
-    _, top10_neighbors = neigh.kneighbors(atac_embeddings, neighbors)
-    #conf_scores = compute_scores(atac_predict, rna_prediction_knn, top10_neighbors, neighbors)
-    hit_cnts = neighbor_hit_cnt(len(rna_label_knn), top10_neighbors)
-    conf_scores = compute_hit_conf(atac_predict, rna_label_knn, top10_neighbors, hit_cnts)
+    rna_embedding_knn = normalize(np.array(rna_embedding_knn), axis=1)
+    atac_embeddings = normalize(atac_embeddings, axis=1)
+
+
+    print('[WKNN] Running weighted KNN')
+    atac_predict, top_neighbors = weighted_knn_predict(atac_embeddings, np.array(rna_embedding_knn), np.array(rna_label_knn), neighbors)
+    hit_cnts = neighbor_hit_cnt(len(rna_label_knn), top_neighbors)
+    conf_scores = compute_hit_conf(atac_predict, rna_label_knn, top_neighbors, hit_cnts)
 
     cnt = 0
     for i, db_name in enumerate(db_names):        
         np.savetxt('./output/' + db_name + '_knn_predictions.txt', atac_predict[cnt:cnt+db_sizes[i]])
         np.savetxt('./output/' + db_name + '_knn_probs.txt', conf_scores[cnt:cnt+db_sizes[i]])
         cnt += db_sizes[i]
-    
-    # test
+
     if len(config.atac_labels) == len(config.atac_paths):
         atac_labels = np.loadtxt(config.atac_labels[0])    
         for i in range(1, len(config.atac_labels)):
             atac_labels = np.concatenate((atac_labels, np.loadtxt(config.atac_labels[i])), 0)
-        
+
         valid_sample_cnt = 0
         correct = 0
         for i in range(atac_predict.shape[0]):
@@ -135,12 +118,8 @@ def KNN(config, neighbors = 30, knn_rna_samples = 20000):
                 valid_sample_cnt += 1
                 if atac_labels[i] == atac_predict[i]:
                     correct += 1
-        
-        print('knn accuracy:', correct*1./valid_sample_cnt)
-                
-             
-        
 
+        print('wknn accuracy:', correct*1./valid_sample_cnt)
 
 if __name__ == "__main__":
     config = Config()

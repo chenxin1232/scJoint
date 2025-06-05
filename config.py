@@ -4,9 +4,13 @@ import os
 class Config(object):
     def __init__(self):
         DB = '10x'
-        self.use_cuda = True
+        self.use_cuda = False
         self.threads = 1
-
+        self.temperature = 0.1 
+        self.weight_decay = 1e-4
+        self.num_res_blocks = 2  # 每个编码器/解码器中的残差块数量
+        self.dropout = 0.2       # Dropout率
+        self.hidden_size = 512  
         if not self.use_cuda:
             self.device = torch.device('cpu')
         else:
@@ -19,7 +23,7 @@ class Config(object):
             self.rna_paths = ['data_10x/exprs_10xPBMC_rna.npz']
             self.rna_labels = ['data_10x/cellType_10xPBMC_rna.txt']		
             self.atac_paths = ['data_10x/exprs_10xPBMC_atac.npz']
-            self.atac_labels = [] #Optional. If atac_labels are provided, accuracy after knn would be provided.
+            self.atac_labels = [''] #Optional. If atac_labels are provided, accuracy after knn would be provided.
             self.rna_protein_paths = []
             self.atac_protein_paths = []
             
@@ -92,7 +96,7 @@ class Config(object):
             self.lr_stage1 = 0.01
             self.lr_stage3 = 0.01
             self.lr_decay_epoch = 20
-            self.epochs_stage1 = 20
+            self.epochs_stage1 = 40
             self.epochs_stage3 = 20
             self.p = 0.8
             self.embedding_size = 64

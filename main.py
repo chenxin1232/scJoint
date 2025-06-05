@@ -32,7 +32,7 @@ def main():
     
     # KNN
     print('KNN')
-    KNN(config, neighbors = 30, knn_rna_samples=20000)
+    KNN(config, neighbors = 10, knn_rna_samples=20000)
     print('KNN finished: ', datetime.now().strftime('%H:%M:%S'))
     
     

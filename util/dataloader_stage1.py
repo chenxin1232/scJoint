@@ -60,7 +60,7 @@ class Dataloader(data.Dataset):
             rand_idx = random.randint(0, self.sample_num - 1)
             sample = np.array(self.data_reader[rand_idx].todense())
             sample = sample.reshape((1, self.input_size))
-            in_data = (sample>0).astype(np.float)  # binarize data
+            in_data = (sample > 0).astype(float)  # binarize data
             
             if self.input_size_protein is not None:
                 sample_protein = np.array(self.protein_reader[rand_idx].todense())
@@ -74,7 +74,7 @@ class Dataloader(data.Dataset):
         else:
             sample = np.array(self.data_reader[index].todense())
             sample = sample.reshape((1, self.input_size))
-            in_data = (sample>0).astype(np.float)  # binarize data
+            in_data = (sample > 0).astype(float)  # binarize data
 
             if self.input_size_protein is not None:
                 sample_protein = np.array(self.protein_reader[index].todense())
@@ -108,7 +108,7 @@ class DataloaderWithoutLabel(data.Dataset):
             rand_idx = random.randint(0, self.sample_num - 1)
             sample = np.array(self.data_reader[rand_idx].todense())
             sample = sample.reshape((1, self.input_size))
-            in_data = (sample>0).astype(np.float)  # binarize data
+            in_data = (sample > 0).astype(float)  # binarize data
             if self.input_size_protein is not None:
                 sample_protein = np.array(self.protein_reader[rand_idx].todense())
                 sample_protein = sample_protein.reshape((1, self.input_size_protein))
@@ -119,7 +119,7 @@ class DataloaderWithoutLabel(data.Dataset):
         else:
             sample = np.array(self.data_reader[index].todense())
             sample = sample.reshape((1, self.input_size))
-            in_data = (sample>0).astype(np.float)  # binarize data
+            in_data = (sample > 0).astype(float)  # binarize data
             if self.input_size_protein is not None:
                 sample_protein = np.array(self.protein_reader[index].todense())
                 sample_protein = sample_protein.reshape((1, self.input_size_protein))
