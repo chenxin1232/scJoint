@@ -107,8 +107,8 @@ class Config(object):
             self.checkpoint = '' 
 
         elif DB == "CoupleCocData":
-            self.number_of_class = 7 # Number of cell types in CITE-seq data
-            self.input_size = 17668 # Number of common genes and proteins between CITE-seq data and ASAP-seq
+            self.number_of_class = 2 # Number of cell types in CITE-seq data
+            self.input_size = 1000 # Number of common genes and proteins between CITE-seq data and ASAP-seq
             self.rna_paths = ['coupleCocData/example1A_S_label.npz'] # RNA gene expression from CITE-seq data
             self.rna_labels = ['coupleCocData/example1A_S.txt'] # CITE-seq data cell type labels (coverted to numeric) 
             self.atac_paths = ['coupleCocData/example1A_T_label.npz'] # ATAC gene activity matrix from ASAP-seq data

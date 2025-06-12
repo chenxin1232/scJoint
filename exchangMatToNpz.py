@@ -6,10 +6,10 @@ from scipy import sparse
 expr_mat = loadmat('data1/example1A_S.mat')
 X = expr_mat['X'] 
 X_sparse = sparse.csr_matrix(X)
-print(expr_mat)
+print(X_sparse)
 # 2. 加载标签
 label_mat = loadmat('data1/example1A_S_label.mat')
-print(label_mat)
+# print(label_mat)
 labels = label_mat['Cx_truth']  # 替换为你实际的变量名
 labels = labels.squeeze()     # 转为一维数组
 
