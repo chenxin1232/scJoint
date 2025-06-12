@@ -105,8 +105,9 @@ def KNN(config, neighbors = 30, knn_rna_samples = 20000):
         np.savetxt('./output/' + db_name + '_knn_predictions.txt', atac_predict[cnt:cnt+db_sizes[i]])
         np.savetxt('./output/' + db_name + '_knn_probs.txt', conf_scores[cnt:cnt+db_sizes[i]])
         cnt += db_sizes[i]
+    
 
-    if len(config.atac_labels) == len(config.atac_paths):
+    if len(config.atac_labels[0] and config.atac_labels) == len(config.atac_paths):
         atac_labels = np.loadtxt(config.atac_labels[0])    
         for i in range(1, len(config.atac_labels)):
             atac_labels = np.concatenate((atac_labels, np.loadtxt(config.atac_labels[i])), 0)

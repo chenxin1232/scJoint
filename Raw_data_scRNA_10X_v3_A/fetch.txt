@@ -1,0 +1,12 @@
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_A01_S01_L003.fastq.tar	81076183040	data/L8TX_181211_01_A01_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_B01_S01_L003.fastq.tar	113756743680	data/L8TX_181211_01_B01_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_C01_S01_L003.fastq.tar	229163909120	data/L8TX_181211_01_C01_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_D01_S01_L003.fastq.tar	125755852800	data/L8TX_181211_01_D01_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_E01_S01_L003.fastq.tar	134654248960	data/L8TX_181211_01_E01_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_F01_S01_L003.fastq.tar	151539886080	data/L8TX_181211_01_F01_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_G12_S01_L003.fastq.tar	126176788480	data/L8TX_181211_01_G12_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_181211_01_H12_S01_L003.fastq.tar	149567600640	data/L8TX_181211_01_H12_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_190430_01_A08_S01_L003.fastq.tar	144325683200	data/L8TX_190430_01_A08_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_190430_01_B08_S01_L003.fastq.tar	167739074560	data/L8TX_190430_01_B08_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_190430_01_F08_S01_L003.fastq.tar	182569594880	data/L8TX_190430_01_F08_S01_L003.fastq.tar
+https://data.nemoarchive.org/biccn/grant/u19_zeng/zeng/transcriptome/scell/10x_v3/mouse/raw/MOp/L8TX_190430_01_G08_S01_L003.fastq.tar	171221657600	data/L8TX_190430_01_G08_S01_L003.fastq.tar

@@ -1,0 +1,10 @@
+Bag-Software-Agent: BDBag version: 1.7.3 (Bagit version: 1.8.1) <https://github.com/fair-research/bdbag>
+BagIt-Profile-Identifier: https://raw.githubusercontent.com/fair-research/bdbag/master/profiles/bdbag-profile.json
+Bagging-Date: 2024-11-12
+Bagging-Time: 18:47:38 EST
+Contact-Email: bherb@som.umaryland.edu
+Contact-Name: Brian R Herb
+External-Description: An integrated multi-modal transcriptomic and epigenomic atlas of mouse primary motor cortex cell types.
+External-Identifier: MOp_MiniAtlas_2020
+Payload-Oxum: 1458486.18
+Source-Organization: NeMO Archive

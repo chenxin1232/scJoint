@@ -1,0 +1,10 @@
+Bag-Software-Agent: BDBag version: 1.5.6 (Bagit version: 1.7.0) <https://github.com/fair-research/bdbag>
+BagIt-Profile-Identifier: https://raw.githubusercontent.com/fair-research/bdbag/master/profiles/bdbag-profile.json
+Bagging-Date: 2021-04-28
+Bagging-Time: 08:39:31 EDT
+Contact-Email: HongkuiZ@alleninstitute.org
+Contact-Name: Hongkui Zeng
+External-Description: Raw data for scRNA_10X_v3 dataset from the Allen institute and published in 'An integrated transcriptomic and epigenomic atlas of mouse primary motor cortex cell types'
+External-Identifier: BICCN_MOp_MiniAtlas_scRNA_10X_v3_Allen
+Payload-Oxum: 1777547223040.12
+Source-Organization: NeMO Archive

@@ -3,7 +3,7 @@ import os
 
 class Config(object):
     def __init__(self):
-        DB = '10x'
+        DB = 'CoupleCocData'
         self.use_cuda = False
         self.threads = 1
         self.temperature = 0.1 
@@ -105,6 +105,32 @@ class Config(object):
             self.with_crossentorpy = True
             self.seed = 1
             self.checkpoint = '' 
+
+        elif DB == "CoupleCocData":
+            self.number_of_class = 7 # Number of cell types in CITE-seq data
+            self.input_size = 17668 # Number of common genes and proteins between CITE-seq data and ASAP-seq
+            self.rna_paths = ['coupleCocData/example1A_S_label.npz'] # RNA gene expression from CITE-seq data
+            self.rna_labels = ['coupleCocData/example1A_S.txt'] # CITE-seq data cell type labels (coverted to numeric) 
+            self.atac_paths = ['coupleCocData/example1A_T_label.npz'] # ATAC gene activity matrix from ASAP-seq data
+            self.atac_labels = ['coupleCocData/example1A_T.txt'] # ASAP-seq data cell type labels (coverted to numeric) 
+            self.rna_protein_paths = [] # Protein expression from CITE-seq data
+            self.atac_protein_paths = [] # Protein expression from ASAP-seq data
+            
+            # Training config            
+            self.batch_size = 256
+            self.lr_stage1 = 0.01
+            self.lr_stage3 = 0.01
+            self.lr_decay_epoch = 20
+            self.epochs_stage1 = 40
+            self.epochs_stage3 = 20
+            self.p = 0.8
+            self.embedding_size = 64
+            self.momentum = 0.9
+            self.center_weight = 1
+            self.with_crossentorpy = True
+            self.seed = 1
+            self.checkpoint = '' 
+
 
 
 

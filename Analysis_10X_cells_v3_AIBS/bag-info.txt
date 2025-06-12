@@ -1,0 +1,10 @@
+Bag-Software-Agent: BDBag version: 1.5.6 (Bagit version: 1.7.0) <https://github.com/fair-research/bdbag>
+BagIt-Profile-Identifier: https://raw.githubusercontent.com/fair-research/bdbag/master/profiles/bdbag-profile.json
+Bagging-Date: 2021-04-28
+Bagging-Time: 08:38:52 EDT
+Contact-Email: HongkuiZ@alleninstitute.org
+Contact-Name: Hongkui Zeng
+External-Description: Analysis for Zeng_Transcriptomic dataset (10X_cells_v3_AIBS) from the Allen institute and published in 'An integrated transcriptomic and epigenomic atlas of mouse primary motor cortex cell types'
+External-Identifier: Zeng_Transcriptomic_Allen_10X_cells_v3_AIBS
+Payload-Oxum: 1126016003.5
+Source-Organization: NeMO Archive
