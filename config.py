@@ -3,7 +3,7 @@ import os
 
 class Config(object):
     def __init__(self):
-        DB = 'CoupleCocData'
+        DB = 'db4_control'
         self.use_cuda = False
         self.threads = 1
         self.temperature = 0.1 
@@ -107,7 +107,7 @@ class Config(object):
             self.checkpoint = '' 
 
         elif DB == "CoupleCocData":
-            self.number_of_class = 2 # Number of cell types in CITE-seq data
+            self.number_of_class = 3 # Number of cell types in CITE-seq data
             self.input_size = 1000 # Number of common genes and proteins between CITE-seq data and ASAP-seq
             self.rna_paths = ['coupleCocData/example1A_S_label.npz'] # RNA gene expression from CITE-seq data
             self.rna_labels = ['coupleCocData/example1A_S.txt'] # CITE-seq data cell type labels (coverted to numeric) 

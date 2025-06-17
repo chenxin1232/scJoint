@@ -14,10 +14,6 @@ class Net_encoder(nn.Module):
         )
 
     def forward(self, data):
-        print("输入data的shape:", data.shape)
-        print("输入data的元素总数:", data.numel())
-        print("期望每个样本的特征维度:", self.input_size)
-        print("元素总数除以输入维度的商和余数:", data.numel() // self.input_size, data.numel() % self.input_size)
         data = data.float().view(-1, self.input_size)
         
         embedding = self.encoder(data)
