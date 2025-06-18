@@ -18,3 +18,5 @@ labels = labels.squeeze()     # 转为一维数组
 # 3. 保存为 npz 和 npy
 sparse.save_npz('coupleCocData/example1A_T_label.npz',Y_sparse)   # 保存表达矩阵
 np.savetxt('coupleCocData/example1A_T.txt', labels,fmt='%s')  # 保存标签数组
+
+

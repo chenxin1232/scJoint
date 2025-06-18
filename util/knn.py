@@ -16,7 +16,7 @@ def neighbor_hit_cnt(rna_cnt, neighbor_indexs):
 
     return hit_cnt
 
-def weighted_knn_predict(atac_embeddings, rna_embedding_knn, rna_label_knn, k=40,sigma = 0.5):
+def weighted_knn_predict(atac_embeddings, rna_embedding_knn, rna_label_knn, k=30,sigma = 1):
     neigh = NearestNeighbors(n_neighbors=k)
     neigh.fit(rna_embedding_knn)
     distances, indices = neigh.kneighbors(atac_embeddings)  # [N_atac, k]

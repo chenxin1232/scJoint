@@ -4,3 +4,6 @@ data_10x/
 data/
 *.zip
 coupleCocData/
+*.h5
+*.mtx
+HematopoiesisData/
