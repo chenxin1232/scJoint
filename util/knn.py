@@ -16,10 +16,10 @@ def neighbor_hit_cnt(rna_cnt, neighbor_indexs):
 
     return hit_cnt
 
-def weighted_knn_predict(atac_embeddings, rna_embedding_knn, rna_label_knn, k=40):
+def weighted_knn_predict(atac_embeddings, rna_embedding_knn, rna_label_knn, k=40,sigma = 0.5):
     neigh = NearestNeighbors(n_neighbors=k)
     neigh.fit(rna_embedding_knn)
-    distances, indices = neigh.kneighbors(atac_embeddings)
+    distances, indices = neigh.kneighbors(atac_embeddings)  # [N_atac, k]
 
     predictions = []
     for i in range(len(atac_embeddings)):
@@ -27,8 +27,11 @@ def weighted_knn_predict(atac_embeddings, rna_embedding_knn, rna_label_knn, k=40
         for j, idx in enumerate(indices[i]):
             label = rna_label_knn[idx]
             dist = distances[i][j]
-            weight = 1 / (dist + 1e-5)
+            # ✅ 使用高斯核代替原来的反比加权
+            weight = np.exp(-dist**2 / (2 * sigma**2))
             class_weights[label] = class_weights.get(label, 0) + weight
+
+        # 选出加权最多的类别
         predictions.append(max(class_weights, key=class_weights.get))
 
     return np.array(predictions), indices
