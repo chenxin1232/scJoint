@@ -3,7 +3,7 @@ import os
 
 class Config(object):
     def __init__(self):
-        DB = 'HematopoiesisData'
+        DB = 'db4_control'
         self.use_cuda = False
         self.threads = 1
         self.temperature = 0.1 
@@ -121,7 +121,7 @@ class Config(object):
             self.lr_stage1 = 0.01
             self.lr_stage3 = 0.01
             self.lr_decay_epoch = 20
-            self.epochs_stage1 = 40
+            self.epochs_stage1 = 20
             self.epochs_stage3 = 20
             self.p = 0.8
             self.embedding_size = 64
@@ -148,7 +148,7 @@ class Config(object):
             self.lr_stage1 = 0.01
             self.lr_stage3 = 0.01
             self.lr_decay_epoch = 20
-            self.epochs_stage1 = 40
+            self.epochs_stage1 = 20
             self.epochs_stage3 = 20
             self.p = 0.8
             self.embedding_size = 64

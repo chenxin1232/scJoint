@@ -130,8 +130,9 @@ class TrainingProcessStage1():
             # caculate contrastive loss
             rna_embedding_cat = torch.cat(rna_embeddings, dim=0)
             atac_embedding_cat = torch.cat(atac_embeddings, dim=0)
-            logits = self.cosine_sim(atac_embedding_cat.unsqueeze(1), rna_embedding_cat.unsqueeze(0))
-            labels = torch.arange(atac_embedding_cat.size(0)).to(self.config.device)
+            N = min(atac_embedding_cat.size(0), rna_embedding_cat.size(0))
+            logits = self.cosine_sim(atac_embedding_cat[:N].unsqueeze(1), rna_embedding_cat[:N].unsqueeze(0))
+            labels = torch.arange(N).to(self.config.device)
             contrastive_loss = F.cross_entropy(logits, labels)
 
             encoding_loss = self.criterion_encoding(atac_embeddings, rna_embeddings)
