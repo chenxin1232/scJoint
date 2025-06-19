@@ -19,10 +19,11 @@ atac_common <- atac[common_genes, ]
 # 细胞类型信息
 rna_cell_types <- as.character(colData(rna)$BioClassification)
 atac_cell_types <- as.character(colData(atac)$BioClassification)
+print(rna_cell_types)
 
 # 过滤细胞类型，去掉含 "25" 或 "26" 的细胞
-rna_keep_idx <- !grepl("25|26", rna_cell_types)
-atac_keep_idx <- !grepl("25|26", atac_cell_types)
+rna_keep_idx <- !grepl("^unk$", rna_cell_types, ignore.case = TRUE)
+atac_keep_idx <- !grepl("^unk$", atac_cell_types, ignore.case = TRUE)
 
 rna_filtered <- rna_common[, rna_keep_idx]
 atac_filtered <- atac_common[, atac_keep_idx]
@@ -55,13 +56,13 @@ atac_label_only <- data.frame(label = atac_labels)
 # write.table(type_label_map, file = "celltype_label_mapping.txt", sep = "\t", quote = FALSE, row.names = FALSE)
 # write.table(rna_label_only, file = "rna_labels.txt", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
 # write.table(atac_label_only, file = "atac_labels.txt", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
-rna_mat <- assay(rna_filtered)
-atac_mat <- assay(atac_filtered)
+# rna_mat <- assay(rna_filtered)
+# atac_mat <- assay(atac_filtered)
 
 # 转置矩阵
-rna_mat_t <- t(rna_mat)
-atac_mat_t <- t(atac_mat)
+# rna_mat_t <- t(rna_mat)
+# atac_mat_t <- t(atac_mat)
 
 # 保存为 Matrix Market 格式（稀疏矩阵）
-writeMM(rna_mat_t, file = "rna_filtered_transposed.mtx")
-writeMM(atac_mat_t, file = "atac_filtered_transposed.mtx")
+# writeMM(rna_mat_t, file = "rna_filtered_transposed.mtx")
+# writeMM(atac_mat_t, file = "atac_filtered_transposed.mtx")
