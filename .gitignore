@@ -8,3 +8,5 @@ coupleCocData/
 *.mtx
 HematopoiesisData/
 *.rds
+*.tar
+models/

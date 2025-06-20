@@ -41,7 +41,7 @@ print(df['data'])
 sns.scatterplot(
     x = "tSNE1", y = "tSNE2",
     hue = "data",
-    palette = sns.color_palette("tab10", 2),
+    palette = sns.color_palette("tab10", 10),
     data = df,
     legend = "full",
     alpha = 0.3
@@ -50,7 +50,7 @@ plt.figure(figsize=(10,10))
 sns.scatterplot(
     x = "tSNE1", y = "tSNE2",
     hue = "predicted",
-    palette = sns.color_palette("Set2", 7),
+    palette = sns.color_palette("hls", 10),
     data = df,
     legend = "full",
     alpha = 0.3

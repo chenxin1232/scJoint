@@ -3,7 +3,7 @@ import os
 
 class Config(object):
     def __init__(self):
-        DB = 'db4_control'
+        DB = 'HematopoiesisData'
         self.use_cuda = False
         self.threads = 1
         self.temperature = 0.1 
