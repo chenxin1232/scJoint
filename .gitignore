@@ -10,3 +10,5 @@ HematopoiesisData/
 *.rds
 *.tar
 models/
+*.gz
+*.csv
