@@ -97,7 +97,7 @@ class Config(object):
             self.lr_stage3 = 0.01
             self.lr_decay_epoch = 20
             self.epochs_stage1 = 40
-            self.epochs_stage3 = 20
+            self.epochs_stage3 = 40
             self.p = 0.8
             self.embedding_size = 64
             self.momentum = 0.9
